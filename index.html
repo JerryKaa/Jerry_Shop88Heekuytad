@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jerry.Shop88 App 💖</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kanit', sans-serif; background-color: #f8f0fc; background-image: linear-gradient(180deg, #fdf5ff 0%, #f4e8ff 100%); min-height: 100vh; margin: 0; padding: 20px 15px; color: #4a4a4a; }
+        .app-logo { width: 90px; height: 90px; border-radius: 22px; box-shadow: 0 8px 20px rgba(192, 132, 252, 0.4); margin-bottom: 15px; border: 3px solid #fff; object-fit: cover; }
+        h1 { text-align: center; color: #8b5cf6; font-size: 26px; font-weight: 600; margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #a855f7; margin-bottom: 25px; font-size: 13px; font-weight: 400; }
+        .header-actions { display: flex; justify-content: center; margin-bottom: 25px; }
+        .btn-search-archive { background: #d8b4fe; color: #581c87; border: none; padding: 12px 24px; border-radius: 20px; cursor: pointer; font-size: 14px; font-weight: 600; width: 100%; box-shadow: 0 4px 12px rgba(216, 180, 254, 0.4); }
+        .category-section { margin-bottom: 35px; }
+        .category-header { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
+        .category-header-top { display: flex; justify-content: space-between; align-items: center; }
+        .category-header h2 { color: #7e22ce; margin: 0; font-size: 22px; font-weight: 600; }
+        .btn-add { background: #c084fc; color: white; border: none; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 500; box-shadow: 0 4px 10px rgba(192, 132, 252, 0.3); }
+        .stock-breakdown { display: flex; flex-direction: column; gap: 6px; background: rgba(255, 255, 255, 0.7); padding: 12px; border-radius: 16px; border: 1px solid #f3e8ff; }
+        .stock-item { display: flex; justify-content: space-between; font-size: 13px; color: #6b21a8; padding: 4px 0; border-bottom: 1px dashed #f3e8ff; font-weight: 500; }
+        .stock-item:last-child { border-bottom: none; }
+        .app-card { background: #FFFFFF; border-radius: 24px; padding: 22px 18px; margin-bottom: 20px; box-shadow: 0 8px 25px rgba(192, 132, 252, 0.15); border: 2px solid #faf5ff; display: flex; flex-direction: column; gap: 18px; }
+        .card-header-top { display: flex; justify-content: space-between; align-items: center; }
+        .card-app-name select { font-size: 16px; font-weight: 600; color: #7e22ce; border: 2px solid #f3e8ff; padding: 8px 15px; border-radius: 16px; background: #faf5ff; outline: none; }
+        .card-date { font-size: 11px; color: #a8a29e; background: #f5f5f5; padding: 4px 10px; border-radius: 12px;}
+        .card-inputs { display: flex; flex-direction: column; gap: 12px; }
+        input[type="text"], input[type="password"], input[type="number"], select { width: 100%; padding: 14px; border: 2px solid #f3e8ff; border-radius: 16px; box-sizing: border-box; font-size: 14px; font-family: inherit; background: #FFFFFF; color: #4c1d95; transition: all 0.3s; }
+        input:focus, select:focus { outline: none; border-color: #c084fc; box-shadow: 0 0 0 3px #f3e8ff; }
+        input::placeholder, textarea::placeholder { color: #cbd5e1; }
+        .link-group { display: flex; gap: 8px; }
+        .btn-openlink { background: #c084fc; color: #FFFFFF; border: none; padding: 0 16px; border-radius: 16px; cursor: pointer; font-size: 18px; box-shadow: 0 4px 10px rgba(192, 132, 252, 0.3); }
+        .device-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .device-slot { display: flex; flex-direction: column; gap: 6px; text-align: center; }
+        .device-slot label { font-size: 12px; font-weight: 500; color: #9333ea; }
+        .device-slot select { padding: 10px 4px; font-size: 13px; font-weight: 600; border-radius: 12px; }
+        .btn-copy { background: linear-gradient(to right, #f472b6, #c084fc); color: #FFFFFF; border: none; padding: 16px; border-radius: 16px; cursor: pointer; font-size: 15px; font-weight: 600; width: 100%; box-shadow: 0 6px 15px rgba(192, 132, 252, 0.35); }
+        .note-section { display: flex; flex-direction: column; gap: 6px; }
+        textarea { width: 100%; padding: 14px; border: 2px solid #f3e8ff; background: #faf5ff; border-radius: 16px; font-size: 14px; font-family: inherit; resize: none; height: 75px; box-sizing: border-box; color: #581c87; }
+        textarea:focus { border-color: #c084fc; outline: none; background: #FFFFFF; }
+        .save-status { font-size: 11px; color: #a855f7; text-align: right; font-weight: 500; }
+        .btn-delete { background: transparent; color: #fb7185; border: 2px dashed #fecdd3; padding: 12px; border-radius: 16px; cursor: pointer; font-weight: 600; font-size: 14px; }
+        #toast { visibility: hidden; min-width: 200px; background: #a855f7; color: #FFFFFF; text-align: center; border-radius: 25px; padding: 14px 20px; position: fixed; z-index: 100; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 14px; font-weight: 500; }
+        #toast.show { visibility: visible; }
+        #overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); backdrop-filter: blur(3px); z-index: 999; }
+        #searchModal { display: none; position: fixed; top: 10%; left: 50%; transform: translateX(-50%); background: #FFFFFF; padding: 25px; border-radius: 24px; z-index: 1000; width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 40px rgba(192, 132, 252, 0.2); }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .modal-header h2 { margin: 0; color: #7e22ce; font-size: 18px; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 20px; }
+        .search-box input { padding: 14px; border-radius: 16px; border: 2px solid #f3e8ff; background: #faf5ff; font-size: 14px; }
+        .btn-do-search { background: linear-gradient(to right, #c084fc, #a855f7); color: white; border: none; padding: 12px 20px; border-radius: 16px; font-weight: 600; cursor: pointer; }
+        .archive-table { width: 100%; border-collapse: collapse; font-size: 13px; color: #581c87; }
+        .archive-table th, .archive-table td { padding: 12px 8px; border-bottom: 1px dashed #f3e8ff; text-align: left; }
+    </style>
+</head>
+<body>
+
+    <div id="loginScreen" style="position:fixed; top:0; left:0; width:100%; height:100%; background:linear-gradient(180deg, #fdf5ff 0%, #f4e8ff 100%); z-index:99999; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+        <img src="https://i.postimg.cc/V6FdZ37v/cexr-r-chxp-88.png" alt="Logo" class="app-logo">
+        <h1 style="color:#8b5cf6; font-size:32px; margin-bottom:10px;">Jerry.Shop88</h1>
+        <p style="color:#a855f7; margin-bottom:25px; font-weight:500;">ล็อกอินด้วย Google Authenticator 🔐</p>
+        
+        <input type="text" id="usernameInput" placeholder="Username (ชื่อผู้ใช้)" style="text-align:center; width:260px; margin-bottom:12px;">
+        <input type="password" id="passInput" placeholder="Password (รหัสผ่าน)" style="text-align:center; width:260px; margin-bottom:12px;">
+        <input type="number" id="otpInput" placeholder="รหัส 6 หลักจากแอป 2FA" style="text-align:center; width:260px; margin-bottom:25px; letter-spacing:2px; font-size:16px;">
+        
+        <button id="loginBtn" onclick="checkCredentials()" style="background:#c084fc; color:white; border:none; padding:15px; width:260px; border-radius:15px; font-size:18px; font-weight:bold; box-shadow:0 4px 15px rgba(192,132,252,0.4); cursor:pointer;">เข้าสู่ระบบ 🚀</button>
+        <p id="loginError" style="color:#ef4444; margin-top:15px; display:none; font-weight:bold; font-size:14px;">❌ ข้อมูลผิด หรือรหัส 2FA หมดเวลาจ๊ะแม่!</p>
+    </div>
+
+    <div id="appContainer" style="display:none; text-align:center;">
+        <img src="https://i.postimg.cc/V6FdZ37v/cexr-r-chxp-88.png" alt="Logo" class="app-logo" style="margin-top:10px;">
+        <h1 style="margin-top:0;">Jerry.Shop88</h1>
+        <p class="subtitle">Pastel PWA Edition 💜 ความปลอดภัยระดับตู้เซฟธนาคาร</p>
+        <div class="header-actions"><button class="btn-search-archive" onclick="toggleSearchModal()">📂 คุ้ยประวัติการขาย (Archive)</button></div>
+        <div id="dashboard" style="text-align:left;"></div>
+        <div id="toast"></div>
+
+        <div id="overlay" onclick="toggleSearchModal()"></div>
+        <div id="searchModal">
+            <div class="modal-header"><h2>🗑️ คลังประวัติ (Archive)</h2><button onclick="toggleSearchModal()" style="background:#fef2f2; color:#ef4444; border:none; padding:8px 14px; border-radius:12px; font-weight:600;">ปิด ❌</button></div>
+            <div class="search-box"><input type="text" id="searchInput" placeholder="พิมพ์ค้นหา (อีเมล, รหัส)..." style="flex:1;"><button class="btn-do-search" onclick="doArchiveSearch()">🔍 ค้นหา</button></div>
+            <div id="searchResults" style="overflow-x: auto; text-align:left;"></div>
+        </div>
+    </div>
+
+    <script>
+        // 🚨🚨 วางลิงก์ WEB APP ตรงนี้ที่เดียว! ไม่ต้องใส่รหัสผ่านใดๆ ในหน้านี้แล้วจ้า 🚨🚨
+        const API_URL = "https://script.google.com/macros/s/AKfycbzLla-nu-IfuKK5dNX8dY8xLal6dTlbRzSJcfWb3zKzWuayxuuCAf0OAhFMb7TD2iKqvQ/exec"; 
+        
+        let AUTH_TOKEN = localStorage.getItem("jerry_auth_token");
+
+        const appTypes = {
+            "Meitu": [ { name: "Meitu 7D", days: 7 }, { name: "Meitu 28D", days: 28 } ],
+            "Beauty Cam": [ { name: "Beauty Cam Vip 5 D", days: 5 }, { name: "Beauty Cam Vip 30 D", days: 30 } ],
+            "Wink": [ { name: "Wink VIp 5D", days: 5 }, { name: "Wink SVIP 5D", days: 5 }, { name: "Wink VIP 30D", days: 30 }, { name: "Wink SVIP 30D", days: 30 } ]
+        };
+        let appData = [];
+        let debounceTimer = {}; 
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js');
+        }
+
+        window.onload = function() {
+            if(AUTH_TOKEN) {
+                document.getElementById("loginScreen").style.display = "none";
+                document.getElementById("appContainer").style.display = "block";
+                initApp();
+            }
+        };
+
+        // 🔥 ยิงรหัสไปให้โกดังหลังบ้านตรวจ 🔥
+        function checkCredentials() {
+            const user = document.getElementById("usernameInput").value;
+            const pass = document.getElementById("passInput").value;
+            const otp = document.getElementById("otpInput").value;
+            const loginBtn = document.getElementById("loginBtn");
+
+            loginBtn.innerText = "กำลังตรวจสอบ... ⏳";
+            
+            fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "login", user: user, pass: pass, otp: otp }),
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            })
+            .then(res => res.json())
+            .then(data => {
+                loginBtn.innerText = "เข้าสู่ระบบ 🚀";
+                if(data.status === "Success") {
+                    AUTH_TOKEN = data.token;
+                    localStorage.setItem("jerry_auth_token", AUTH_TOKEN);
+                    document.getElementById("loginScreen").style.display = "none";
+                    document.getElementById("appContainer").style.display = "block";
+                    initApp();
+                } else {
+                    document.getElementById("loginError").style.display = "block";
+                }
+            }).catch(() => {
+                loginBtn.innerText = "เข้าสู่ระบบ 🚀";
+                document.getElementById("loginError").innerText = "❌ เชื่อมต่อล้มเหลว ลองใหม่นะแม่!";
+                document.getElementById("loginError").style.display = "block";
+            });
+        }
+
+        // ฟังก์ชันเตะออกเวลารหัสหมดอายุ
+        function forceLogout() {
+            localStorage.removeItem("jerry_auth_token");
+            location.reload();
+        }
+
+        function initApp() {
+            const dash = document.getElementById("dashboard");
+            dash.innerHTML = "<h3 style='text-align:center; color:#c084fc; margin-top:40px; font-weight:400;'>กำลังดึงสต็อกจากคลาวด์... ☁️</h3>";
+            
+            // 🔥 แนบตั๋ว (Token) ไปขอข้อมูลด้วยทุกครั้ง 🔥
+            fetch(API_URL + "?action=loadData&token=" + AUTH_TOKEN)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error === "Auth Failed") return forceLogout();
+                    appData = data;
+                    renderCards();
+                }).catch(err => dash.innerHTML = "<p style='text-align:center;color:red;'>⚠️ โหลดไม่ขึ้นแม่!</p>");
+        }
+
+        function showToast(msg, color) {
+            const toast = document.getElementById("toast");
+            toast.innerText = msg;
+            toast.style.background = color || "#a855f7";
+            toast.className = "show";
+            setTimeout(() => { toast.className = ""; }, 3000);
+        }
+
+        function triggerSave(msg = "กำลังเซฟ... ☁️") {
+            showToast(msg, "#c084fc"); 
+            fetch(API_URL, {
+                method: "POST",
+                body: JSON.stringify({ action: "saveData", appData: appData, token: AUTH_TOKEN }),
+                headers: { "Content-Type": "text/plain;charset=utf-8" }
+            }).then(res => res.json()).then(data => {
+                if (data.status === "Auth Failed") forceLogout();
+                else showToast("✅ เซฟลงคลาวด์แล้วจ้า!", "#34d399");
+            });
+        }
+
+        function addAccount(category) {
+            const now = new Date();
+            appData.push({
+                id: Date.now(), category: category,
+                appName: appTypes[category][0].name, days: appTypes[category][0].days,
+                dateAdded: now.toLocaleString('th-TH', { dateStyle: 'short', timeStyle: 'short' }),
+                timestamp: now.getTime(), email: "", pass: "", link: "",
+                status1: "ว่าง", status2: "ว่าง", status3: "ว่าง", remark: ""
+            });
+            renderCards();
+            triggerSave("เปิดบิลใหม่... 🛍️");
+        }
+
+        function deleteAccount(id) {
+            if(confirm("ปิดจ๊อบออเดอร์นี้ ย้ายลง Archive ใช่ไหมแม่? 📂✨")) {
+                const appToArchive = appData.find(app => Number(app.id) === Number(id));
+                appData = appData.filter(app => Number(app.id) !== Number(id));
+                renderCards();
+                
+                fetch(API_URL, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "archiveRecord", appObj: appToArchive, token: AUTH_TOKEN }),
+                    headers: { "Content-Type": "text/plain;charset=utf-8" }
+                }).then(res => res.json()).then(data => {
+                    if (data.status === "Auth Failed") forceLogout();
+                    else showToast("ย้ายลง Archive แล้วจ้า 💨", "#f472b6");
+                });
+            }
+        }
+
+        function updateData(id, field, value) {
+            const index = appData.findIndex(app => Number(app.id) === Number(id));
+            if (index !== -1) {
+                appData[index][field] = value;
+                if(field === 'appName') {
+                    const selectedApp = appTypes[appData[index].category].find(a => a.name === value);
+                    if(selectedApp) appData[index].days = selectedApp.days;
+                    renderCards(); 
+                }
+                triggerSave(); 
+                if(field.startsWith('status') || field === 'appName') updateDashboardStats();
+            }
+        }
+
+        function autoSaveNote(id, value) {
+            const index = appData.findIndex(app => String(app.id) === String(id));
+            if (index !== -1) { appData[index].remark = value; }
+            
+            const statusDiv = document.getElementById('save_status_' + id);
+            statusDiv.innerText = "กำลังพิมพ์... ✍️";
+            statusDiv.style.color = "#c084fc"; 
+            
+            clearTimeout(debounceTimer[id]);
+            debounceTimer[id] = setTimeout(() => {
+                statusDiv.innerText = "กำลังอัดลงคลาวด์... ☁️";
+                fetch(API_URL, {
+                    method: "POST",
+                    body: JSON.stringify({ action: "updateRemark", id: id, remarkValue: value, token: AUTH_TOKEN }),
+                    headers: { "Content-Type": "text/plain;charset=utf-8" }
+                }).then(res => res.json()).then(data => {
+                    if (data.status === "Auth Failed") return forceLogout();
+                    statusDiv.innerText = "✅ บันทึกแล้ว!";
+                    statusDiv.style.color = "#34d399"; 
+                    setTimeout(() => { 
+                        statusDiv.innerText = "✨ เซฟออโต้ ✨"; 
+                        statusDiv.style.color = "#d8b4fe";
+                    }, 2000);
+                });
+            }, 800);
+        }
+
+        function updateDashboardStats() {
+            Object.keys(appTypes).forEach(category => {
+                appTypes[category].forEach(pkg => {
+                    let pkgFree = 0, pkgSold = 0;
+                    appData.forEach(app => {
+                        if (app.appName === pkg.name) {
+                            ['status1', 'status2', 'status3'].forEach(st => {
+                                if (app[st] === 'ว่าง') pkgFree++;
+                                if (app[st] === 'ขายแล้ว') pkgSold++;
+                            });
+                        }
+                    });
+                    let safePkg = pkg.name.replace(/[\s\(\)]/g, '');
+                    let fElem = document.getElementById('pkg-free-' + safePkg);
+                    let sElem = document.getElementById('pkg-sold-' + safePkg);
+                    if(fElem) fElem.innerText = pkgFree;
+                    if(sElem) sElem.innerText = pkgSold;
+                });
+            });
+        }
+
+        function openLink(url) {
+            if (!url || url.trim() === "") return alert("ว้าย! บอสยังไม่ได้ใส่ลิงก์เลยนะแม่ 💅");
+            if (!url.startsWith('http://') && !url.startsWith('https://')) url = 'https://' + url;
+            window.open(url, '_blank');
+        }
+
+        function toggleSearchModal() {
+            const modal = document.getElementById('searchModal');
+            const overlay = document.getElementById('overlay');
+            if(modal.style.display === 'block') {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            } else {
+                modal.style.display = 'block';
+                overlay.style.display = 'block';
+                document.getElementById('searchInput').value = ""; 
+                doArchiveSearch(true); 
+            }
+        }
+
+        function doArchiveSearch(loadAll = false) {
+            const keyword = loadAll ? "" : document.getElementById('searchInput').value;
+            const resDiv = document.getElementById('searchResults');
+            resDiv.innerHTML = "<p style='text-align: center; color: #a855f7; margin-top:20px;'>กำลังงมหาให้จ้า... 🔍</p>";
+            
+            fetch(API_URL + "?action=searchArchive&keyword=" + encodeURIComponent(keyword) + "&token=" + AUTH_TOKEN)
+                .then(res => res.json())
+                .then(results => {
+                    if (results.error === "Auth Failed") return forceLogout();
+                    if(results.length === 0) { resDiv.innerHTML = "<p style='text-align: center; color: #ef4444; margin-top:20px;'>❌ หาไม่เจอเลยแม่จ๋า</p>"; return; }
+                    let html = `<table class="archive-table"><thead><tr><th>แอป/วันที่ลบ</th><th>รายละเอียด</th></tr></thead><tbody>`;
+                    results.forEach(r => {
+                        let btnLink = r.link ? `<a href="${r.link.startsWith('http') ? r.link : 'https://'+r.link}" target="_blank" style="color:#a855f7; text-decoration:none; font-weight:bold;">🚀 จิ้มลิงก์</a>` : '-';
+                        html += `<tr><td><b style="color:#7e22ce;">${r.appName}</b><br><span style="font-size:10px; color:#a8a29e;">${r.deleteDate}</span></td><td>เมล: ${r.email}<br>รหัส: ${r.pass}<br>${btnLink}<br><span style="color:#8b5cf6; font-size:12px; background:#faf5ff; padding:4px 8px; border-radius:8px; display:inline-block; margin-top:5px;">📝 ${r.remark || '-'}</span></td></tr>`;
+                    });
+                    html += `</tbody></table>`;
+                    resDiv.innerHTML = html;
+                });
+        }
+
+        function renderCards() {
+            const dashboard = document.getElementById("dashboard");
+            dashboard.innerHTML = "";
+            appData.sort((a, b) => Number(a.timestamp) - Number(b.timestamp));
+
+            Object.keys(appTypes).forEach(category => {
+                const section = document.createElement("div");
+                section.className = "category-section";
+                const catData = appData.filter(app => app.category === category);
+                let breakdownHtml = `<div class="stock-breakdown">`;
+                appTypes[category].forEach(pkg => {
+                    let pkgFree = 0, pkgSold = 0;
+                    catData.filter(a => a.appName === pkg.name).forEach(app => {
+                        ['status1', 'status2', 'status3'].forEach(st => {
+                            if (app[st] === 'ว่าง') pkgFree++;
+                            if (app[st] === 'ขายแล้ว') pkgSold++;
+                        });
+                    });
+                    let safePkg = pkg.name.replace(/[\s\(\)]/g, '');
+                    breakdownHtml += `<div class="stock-item"><span style="font-weight:600;">📦 ${pkg.name}</span><span style="font-size:12px; display:flex; gap:6px;"><span style="background:#dcfce7; color:#166534; padding:2px 8px; border-radius:12px;">🟢 ว่าง <span id="pkg-free-${safePkg}">${pkgFree}</span></span><span style="background:#ffe4e6; color:#be123c; padding:2px 8px; border-radius:12px;">🔴 ขาย <span id="pkg-sold-${safePkg}">${pkgSold}</span></span></span></div>`;
+                });
+                breakdownHtml += `</div>`;
+
+                section.innerHTML = `<div class="category-header"><div class="category-header-top"><h2>✨ ${category}</h2><button class="btn-add" onclick="addAccount('${category}')">➕ เพิ่มคิว</button></div>${breakdownHtml}</div>`;
+
+                if (catData.length > 0) {
+                    catData.forEach(app => {
+                        const card = document.createElement("div");
+                        card.className = "app-card";
+                        let appOptions = appTypes[category].map(a => `<option value="${a.name}" ${app.appName === a.name ? 'selected' : ''}>${a.name}</option>`).join("");
+                        const getStatusStyle = (status) => status === 'ขายแล้ว' ? 'background: #fff1f2; color: #e11d48; border: 2px solid #ffe4e6;' : 'background: #f0fdf4; color: #15803d; border: 2px solid #dcfce7;';
+
+                        card.innerHTML = `
+                            <div class="card-header-top"><div class="card-app-name"><select onchange="updateData(${app.id}, 'appName', this.value)">${appOptions}</select></div><div class="card-date">${app.dateAdded.replace(' ', '<br>')}</div></div>
+                            <div class="card-inputs"><input type="text" value="${app.email}" placeholder="💌 อีเมลลูกค้า / ID" onchange="updateData(${app.id}, 'email', this.value)"><input type="text" value="${app.pass}" placeholder="🔑 รหัสผ่าน" onchange="updateData(${app.id}, 'pass', this.value)"><div class="link-group"><input type="text" value="${app.link}" placeholder="🔗 ลิงก์รวมแอป" onchange="updateData(${app.id}, 'link', this.value)" style="flex: 1;"><button class="btn-openlink" onclick="openLink('${app.link}')">🚀</button></div></div>
+                            <div class="device-grid">
+                                ${[1, 2, 3].map(num => `<div class="device-slot"><label>📱 เครื่อง ${num}</label><select onchange="updateData(${app.id}, 'status${num}', this.value)" style="${getStatusStyle(app['status'+num])}"><option value="ว่าง" ${app['status'+num] === 'ว่าง' ? 'selected' : ''}>🟢 ว่าง</option><option value="ขายแล้ว" ${app['status'+num] === 'ขายแล้ว' ? 'selected' : ''}>🔴 ขายแล้ว</option></select></div>`).join("")}
+                            </div>
+                            <button class="btn-copy" onclick="copyData(${app.id})">📋 ก๊อปปี้ส่งลูกค้าเลยแม่!</button>
+                            <div class="note-section"><textarea id="note_${app.id}" placeholder="📝 พิมพ์หมายเหตุตรงนี้..." oninput="autoSaveNote('${app.id}', this.value)">${app.remark || ""}</textarea><div id="save_status_${app.id}" class="save-status">✨ เซฟออโต้ ✨</div></div>
+                            <button class="btn-delete" onclick="deleteAccount(${app.id})">❌ ปิดจ๊อบ / ย้ายลง Archive</button>
+                        `;
+                        section.appendChild(card);
+                    });
+                } else {
+                    section.innerHTML += `<div style="text-align:center; color:#c084fc; font-size:13px; margin-bottom:15px; padding:15px; border:2px dashed #f3e8ff; border-radius:16px; background:#faf5ff;">ยังไม่มีคิวในหมวดนี้นะแม่ 🌸</div>`;
+                }
+                dashboard.appendChild(section);
+            });
+        }
+
+        function copyData(id) {
+            const app = appData.find(a => Number(a.id) === Number(id));
+            if(app) {
+                const text = `แอป: ${app.appName} (${app.days} วัน)\nเมล: ${app.email}\nรหัส: ${app.pass}\nลิงก์: ${app.link}`;
+                navigator.clipboard.writeText(text).then(() => { showToast("📋 ก๊อปปี้ส่งลูกค้าได้เลยจ้า!", "#f472b6"); });
+            }
+        }
+    </script>
+</body>
+</html>

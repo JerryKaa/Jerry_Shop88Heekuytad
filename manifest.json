@@ -1,0 +1,22 @@
+{
+  "name": "Jerry.Shop88",
+  "short_name": "Jerry.Shop88",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#f8f0fc",
+  "theme_color": "#c084fc",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/V6FdZ37v/cexr-r-chxp-88.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://i.postimg.cc/V6FdZ37v/cexr-r-chxp-88.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
